@@ -307,6 +307,7 @@ elif config.get("workflow") == "binning":
     include: "rules/binning.snakefile"
     include: "rules/assemble.snakefile"
     include: "rules/gene_annotation.snakefile"
+    include: "rules/anvio.snakefile"
 
 
 elif config.get("workflow") == "download":
