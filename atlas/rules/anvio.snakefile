@@ -40,7 +40,7 @@ rule anvi_gen_contigs_database:
         "logs/genomes/anvio/anvi_gen_contigs_database.log"
     shell:
         """
-            anvi-gen-contigs-database -f {input} -o {output} -n '{params.name}' ⁠\
+            anvi-gen-contigs-database -f {input} -o {output} -n '{params.name}' \
             --skip-gene-calling \
             --skip-mindful-splitting --split-length -1 |& tee {log}
         """
