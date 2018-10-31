@@ -20,7 +20,7 @@ rule get_contigs:
     output:
         fasta=temp("genomes/anvio/all_contigs.fasta")
     shell:
-        "cat {input} > {output}"
+        "cat {input}/*.fasta > {output}"
 
 
 rule anvi_gen_contigs_database:
