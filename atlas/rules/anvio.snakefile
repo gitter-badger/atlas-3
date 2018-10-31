@@ -40,7 +40,9 @@ rule anvi_gen_contigs_database:
         "logs/genomes/anvio/anvi_gen_contigs_database.log"
     shell:
         """
-            anvi-gen-contigs-database -f {input} -o {output} -n '{params.name}' --skip-mindful-splitting |& tee {log}
+            anvi-gen-contigs-database -f {input} -o {output} -n '{params.name}' ⁠\
+            --skip-gene-calling \
+            --skip-mindful-splitting --split-length -1 |& tee {log}
         """
 
 
@@ -103,7 +105,7 @@ rule anvi_profile:
     conda:
         "%s/anvio.yaml" %CONDAENV
     log:
-        "logs/genome/anvio/profile_{sample}.log"
+        "logs/genomes/anvio/profile_{sample}.log"
     shell:
         """
             rm -rf {params.outdir}   |& tee {log}      # outdir shouldn't exist bevore
@@ -125,7 +127,7 @@ rule anvi_merge:
     conda:
         "%s/anvio.yaml" %CONDAENV
     log:
-        "logs/genome/anvio/merge_profile.log"
+        "logs/genomes/anvio/merge_profile.log"
     shell:
         """
             anvi-merge {input.profiles} \
@@ -160,7 +162,8 @@ rule anvi_import_binning_results:
             |& tee {log}
         """
 
-
+# anvi-interactive -p SAMPLES-MERGED/PROFILE.db -c contigs.db \
+# --export-svg FILE_NAME.svg
 
 #
 # rule create_bam_index:
