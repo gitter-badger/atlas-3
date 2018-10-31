@@ -95,9 +95,9 @@ rule anvi_profile:
         bam=bam_file,
         bai=bam_file+".bai"
     output:
-        "genomes/anvio/profiles/{sample}/PROFILE.db"
+        "genomes/anvio/sample_profiles/{sample}/PROFILE.db"
     params:
-        outdir=lambda wc, input: os.path.dirname(input[0]),
+        outdir=lambda wc, output: os.path.dirname(output[0]),
     threads:
         8
     resources:
@@ -110,7 +110,7 @@ rule anvi_profile:
         """
             rm -rf {params.outdir}   |& tee {log}      # outdir shouldn't exist bevore
             anvi-profile -i {input.bam} -c {input.db} -T {threads} \
-            --output-dir {params.outdir} \
+            --output-dir {params.outdir} -S {wildcards.sample} \
             --skip-SNV-profiling |& tee {log}
         """
 
